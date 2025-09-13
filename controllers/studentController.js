@@ -1,6 +1,7 @@
 const Student = require('../models/Student');
 const Payment = require('../models/Payment');
 const { validationResult } = require('express-validator');
+const Seat = require('../models/Seat');
 
 // Get all students
 const getStudents = async (req, res) => {
@@ -76,17 +77,42 @@ const updateStudent = async (req, res) => {
 };
 
 // Delete student
+// 
+
+
 const deleteStudent = async (req, res) => {
   try {
-    const student = await Student.findByIdAndDelete(req.params.id);
+    // pehle student dhoondo
+    const student = await Student.findById(req.params.id);
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
+
+    // seat jisme ye student hai
+    const seat = await Seat.findOne({ "student.studentId": req.params.id }).populate("student.studentId");
+    if (!seat) {
+      await student.deleteOne();
+      return res.json({ message: 'Student deleted (no seat assigned)' });
+    }
+
+    // student ko array se pull karo
+    await Seat.updateOne(
+      { _id: seat._id },
+      { 
+        $pull: { student: { studentId: req.params.id } },
+        $set: { occupied: false, seatOcupiedTiming: seat.student.length === 1 ? "none" : seat.seatOcupiedTiming }
+      }
+    );
+
+    // student document delete karo
+    await student.deleteOne();
+
     res.json({ message: 'Student deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 module.exports = {
   getStudents,
