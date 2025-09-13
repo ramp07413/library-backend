@@ -14,7 +14,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin : 'https://ganpati-lib.netlify.app/',
+  origin : 'https://ganpati-lib.netlify.app',
   credentials : true
 }));
 app.use(express.json());
