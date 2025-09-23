@@ -19,21 +19,51 @@ const getStudents = async (req, res) => {
     if (status && status !== 'all') query.status = status;
     if(seatingType && seatingType !== 'all') query.seatingType = seatingType;
 
-    const students = await Student.find(query).sort({ createdAt: -1 });
-    res.json(students);
-  } catch (error) {
+    let students = await Student.find(query).sort({ createdAt: -1 });
+
+  const AllStudents = []
+    for (let detail of students){
+      let seat = await Seat.findOne({"student.studentId" : detail._id})  
+      console.log(seat)
+
+      if(seat){
+        AllStudents.push({...detail._doc, seatNo : seat.seatNumber })
+      }
+      else{
+        AllStudents.push(detail._doc)
+      }
+    }
+  if(!AllStudents || AllStudents.lenght === 0){
+    return res.status(500).json({
+      sucess : false,
+      message : "something went wrong"
+    })
+  }
+    res.json(AllStudents);
+
+  } catch (error) { 
+    console.error(error)
     res.status(500).json({ message: error.message });
   }
 };
 
+
 // Get student by ID
 const getStudentById = async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id);
+    const studentId = req.params.id
+    const student = await Student.findById(studentId);
+    const sheatNo = await Seat.findOne({"student.studentId" : studentId})
+    console.log(sheatNo)
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
-    res.json(student);
+    if(sheatNo){
+      student.sheatNo = sheatNo
+    }
+    res.json({student,
+      sheatNo : sheatNo.seatNumber
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -27,7 +27,6 @@ const studentSchema = new mongoose.Schema({
   },
   endDate : {
     type : Date,
-    required : true
   },
   shift: {
     type: String,
