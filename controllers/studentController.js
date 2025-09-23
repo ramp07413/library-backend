@@ -53,17 +53,18 @@ const getStudentById = async (req, res) => {
   try {
     const studentId = req.params.id
     const student = await Student.findById(studentId);
-    const sheatNo = await Seat.findOne({"student.studentId" : studentId})
-    console.log(sheatNo)
+    const seatNo = await Seat.findOne({"student.studentId" : studentId})
+    console.log(seatNo.seatNumber)
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
-    if(sheatNo){
-      student.sheatNo = sheatNo
-    }
-    res.json({student,
-      sheatNo : sheatNo.seatNumber
-    });
+    let studentObject = student.toObject()
+
+    
+    studentObject.seatNo = seatNo ? seatNo.seatNumber :  null
+    
+    
+    res.json({student : studentObject});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
