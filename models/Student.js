@@ -39,7 +39,9 @@ const studentSchema = new mongoose.Schema({
     enum : ['half', 'full'],
     default : 'full'
   },
-  
+  fee : {
+    type : Number
+  },
   status: {
     type: String,
     enum: ['active', 'inactive'],
