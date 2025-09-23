@@ -6,6 +6,9 @@ const studentSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  fatherName : {
+    type : String
+  },
   email: {
     type: String,
     required: true,
@@ -14,15 +17,17 @@ const studentSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true
   },
   address: {
     type: String,
-    required: true
   },
   joinDate: {
     type: Date,
     required: true
+  },
+  endDate : {
+    type : Date,
+    required : true
   },
   shift: {
     type: String,
