@@ -17,8 +17,7 @@ const studentValidation = [
   body('email').isEmail().withMessage('Please provide a valid email'),
   body('phone').isMobilePhone().withMessage('Please provide a valid phone number'),
   body('address').trim().isLength({ min: 5 }).withMessage('Address must be at least 5 characters'),
-  body('shift').isIn(['morning', 'afternoon', 'evening', 'night']).withMessage('Invalid shift'),
-  body('seatPreference').optional().isIn(['any', 'window', 'quiet', 'group'])
+  body('shift').isIn(['morning', 'afternoon', 'evening', 'night']).withMessage('Invalid shift')
 ];
 
 // All routes require authentication

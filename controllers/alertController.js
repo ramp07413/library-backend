@@ -1,3 +1,4 @@
+const { mongo, default: mongoose } = require('mongoose');
 const Alert = require('../models/Alert');
 
 // Get all alerts
@@ -59,10 +60,22 @@ const markAllAsRead = async (req, res) => {
 // Delete alert
 const deleteAlert = async (req, res) => {
   try {
-    const alert = await Alert.findByIdAndDelete(req.params.id);
-    if (!alert) {
-      return res.status(404).json({ message: 'Alert not found' });
+    const alertId = req.params.id
+
+    if(!alertId){
+      return res.status(400).json({
+        success : false,
+        message : "please enter id"
+      })
     }
+
+    if(!mongoose.Types.ObjectId.isValid(alertId)){
+      return res.status(400).json({
+        success : false,
+        message : ""
+      })
+    }
+    const alert = await Alert.findByIdAndDelete(req.params.id);
     res.json({ message: 'Alert deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });

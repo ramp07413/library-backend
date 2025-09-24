@@ -18,46 +18,8 @@ const getDashboardStats = async (req, res) => {
     const fullseat = await Seat.countDocuments({ seatOcupiedTiming: 'full' });
     const halfseat = await Seat.countDocuments({ seatOcupiedTiming: 'half' });
 
-    // Payment stats
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
+
     
-    const monthlyRevenue = await Payment.aggregate([
-      { 
-        $match: { 
-          status: 'paid',
-          paidDate: {
-            $gte: new Date(currentYear, currentMonth, 1),
-            $lt: new Date(currentYear, currentMonth + 1, 1)
-          }
-        }
-      },
-      { $group: { _id: null, total: { $sum: '$amount' } } }
-    ]);
-
-    const pendingPayments = await Payment.countDocuments({ status: 'pending' });
-
-    // Revenue chart data (last 6 months)
-    const revenueData = [];
-    for (let i = 5; i >= 0; i--) {
-      const date = new Date(currentYear, currentMonth - i, 1);
-      const nextDate = new Date(currentYear, currentMonth - i + 1, 1);
-      
-      const revenue = await Payment.aggregate([
-        {
-          $match: {
-            status: 'paid',
-            paidDate: { $gte: date, $lt: nextDate }
-          }
-        },
-        { $group: { _id: null, total: { $sum: '$amount' } } }
-      ]);
-      
-      revenueData.push({
-        month: date.toLocaleString('default', { month: 'short' }),
-        amount: revenue[0]?.total || 0
-      });
-    }
 
     // Student distribution by shift
     const shiftDistribution = await Student.aggregate([
@@ -78,12 +40,9 @@ const getDashboardStats = async (req, res) => {
         occupiedSeats,
         availableSeats,
         fullseat,
-        halfseat,
-        monthlyRevenue: monthlyRevenue[0]?.total || 0,
-        pendingPayments
+        halfseat
       },
       charts: {
-        revenueData,
         shiftDistribution
       },
       recentActivities

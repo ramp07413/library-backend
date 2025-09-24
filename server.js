@@ -33,6 +33,7 @@ app.use('/api/seats', require('./routes/seatRoutes'));
 app.use('/api/alerts', require('./routes/alertRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 
+
 // Health check route
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });

@@ -139,7 +139,7 @@ const assignSeat = async (req, res) => {
       occupied = true
     }
 
-    if(seatOcupiedTiming === "half" && seat.student.length == 2){
+    if(seatOcupiedTiming === "half" && seat.student.length == 1){
       occupied = true
     }
 

@@ -1,5 +1,4 @@
 const Student = require('../models/Student');
-const Payment = require('../models/Payment');
 const { validationResult } = require('express-validator');
 const Seat = require('../models/Seat');
 
