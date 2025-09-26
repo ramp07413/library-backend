@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { authenticate, authorize } = require('../middleware/auth');
-const { getPayments } = require('../controllers/payment.controller');
+const { getPayments, addPendingPayment, depositPayment, getOneStudentPayment, updatePayment, deletePayment } = require("../controllers/payment.controller")
 
 const router = express.Router();
 
@@ -17,5 +17,10 @@ router.use(authenticate);
 //routes with authorization payment routes
 
 router.get("/", authorize("payments", 'read'), getPayments)
+router.post("/addPending", authorize("payments", 'create'), addPendingPayment)
+router.put("/depositPayment", authorize("payments", 'update'), depositPayment)
+router.get("/get/:id", authorize("payments", 'read'), getOneStudentPayment)
+router.patch("/update/:id", authorize("payments", 'update'), updatePayment)
+router.delete("/delete/:id", authorize("payments", 'delete'), deletePayment)
 
 module.exports = router;

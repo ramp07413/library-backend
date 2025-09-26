@@ -2,10 +2,13 @@ const mongoose = require('mongoose')
 
 
 const paymentSchema = new mongoose.Schema({
-  StudentId : {
+  studentId : {
     type : mongoose.Schema.Types.ObjectId,
     ref : "Student",
     required : true
+  },
+  amount : {
+    type : Number
   },
   dueDate : {
     type : Date
@@ -28,8 +31,7 @@ const paymentSchema = new mongoose.Schema({
   },
   paymentType : {
     type : String,
-    enum : ['cash', 'online'],
-    required : true
+    enum : ['cash', 'online']
   }
 },{
   timestamps : true

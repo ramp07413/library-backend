@@ -1,6 +1,7 @@
 const Payment = require('../models/Payment');
 const Student = require('../models/Student');
 const Alert = require('../models/Alert');
+const Seat = require('../models/Seat');
 
 // Get user's student details
 const getMyDetails = async (req, res) => {
@@ -126,24 +127,29 @@ const getMyAlerts = async (req, res) => {
 // Get user's seat information
 const getMySeat = async (req, res) => {
   try {
-    if (!req.user.studentId) {
+
+    const studentId = req.user.studentId
+    if (!studentId) {
       return res.status(404).json({ message: 'No student profile found' });
     }
 
-    const student = await Student.findById(req.user.studentId);
+    const student = await Student.findById(studentId);
     if (!student) {
       return res.status(404).json({ message: 'Student profile not found' });
     }
 
-    if (!student.seatNumber) {
+    const seat = await Seat.findOne({"student.studentId" : studentId}).select('seatNumber typen seatOcupiedTiming')
+
+    if (!seat) {
       return res.json({ message: 'No seat assigned yet', seatNumber: null });
     }
 
-    const Seat = require('../models/Seat');
-    const seat = await Seat.findOne({ seatNumber: student.seatNumber });
+
+
+
 
     res.json({
-      seatNumber: student.seatNumber,
+      seatNumber: seat.seatNumber,
       seatDetails: seat,
       assignedDate: student.updatedAt
     });

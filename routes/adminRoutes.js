@@ -7,7 +7,7 @@ const {
   toggleUserStatus,
   deleteUser,
   getUserStats
-} = require('../controllers/adminController');
+} = require('../controllers/admin.Controller');
 const { authenticate, requireAdmin, requireSuperAdmin, authorize } = require('../middleware/auth');
 
 const router = express.Router();

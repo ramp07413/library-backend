@@ -1,13 +1,12 @@
 const express = require('express');
 const {
-  initializeSeats,
   createSeat,
   getSeats,
   deleteSeat,
   assignSeat,
   unassignSeat,
   getSeatStats
-} = require('../controllers/seatController');
+} = require('../controllers/seat.Controller');
 const { authenticate, authorize } = require('../middleware/auth');
 
 const router = express.Router();

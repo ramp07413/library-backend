@@ -5,7 +5,7 @@ const {
   updateExpense,
   deleteExpense,
   getExpenseStats
-} = require('../controllers/expenseController');
+} = require('../controllers/expense.Controller');
 const { authenticate, authorize } = require('../middleware/auth');
 
 const router = express.Router();

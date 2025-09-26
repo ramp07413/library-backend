@@ -6,7 +6,7 @@ const {
   createStudent,
   updateStudent,
   deleteStudent
-} = require('../controllers/studentController');
+} = require('../controllers/student.Controller');
 const { authenticate, authorize } = require('../middleware/auth');
 
 const router = express.Router();
