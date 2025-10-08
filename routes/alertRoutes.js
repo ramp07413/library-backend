@@ -6,7 +6,7 @@ const {
   markAllAsRead,
   deleteAlert,
   getAlertStats
-} = require('../controllers/alert.Controller');
+} = require('../controllers/alertController');
 const { authenticate, authorize } = require('../middleware/auth');
 
 const router = express.Router();

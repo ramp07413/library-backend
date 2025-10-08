@@ -6,7 +6,7 @@ const {
   getMyAlerts,
   getMySeat,
   getMyDashboard
-} = require('../controllers/user.Controller');
+} = require('../controllers/userController');
 const { authenticate } = require('../middleware/auth');
 
 const router = express.Router();
