@@ -1,11 +1,7 @@
-const express = require('express');
-const {
-  getDashboardStats,
-  getRevenueAnalytics
-} = require('../controllers/dashboardController');
-const { authenticate, authorize } = require('../middleware/auth');
-
-const router = express.Router();
+import { Router } from 'express';
+import { authenticate, authorize } from '../middleware/auth.js';
+import { getDashboardStats, getRevenueAnalytics } from '../controllers/dashboard.Controller.js';
+const router = Router();
 
 // All routes require authentication
 router.use(authenticate);
@@ -14,4 +10,6 @@ router.use(authenticate);
 router.get('/stats', authorize('dashboard', 'read'), getDashboardStats);
 router.get('/revenue-analytics', authorize('dashboard', 'read'), getRevenueAnalytics);
 
-module.exports = router;
+
+
+export {router as dashboardRouter}

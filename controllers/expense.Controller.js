@@ -1,7 +1,7 @@
-const Expense = require('../models/Expense');
+import {Expense} from '../models/Expense.js';
 
 // Get all expenses
-const getExpenses = async (req, res) => {
+export const getExpenses = async (req, res) => {
   try {
     const { category, type } = req.query;
     let query = {};
@@ -17,7 +17,7 @@ const getExpenses = async (req, res) => {
 };
 
 // Create new expense
-const createExpense = async (req, res) => {
+export const createExpense = async (req, res) => {
   try {
     const expense = new Expense(req.body);
     await expense.save();
@@ -28,7 +28,7 @@ const createExpense = async (req, res) => {
 };
 
 // Update expense
-const updateExpense = async (req, res) => {
+export const updateExpense = async (req, res) => {
   try {
     const expense = await Expense.findByIdAndUpdate(
       req.params.id,
@@ -45,7 +45,7 @@ const updateExpense = async (req, res) => {
 };
 
 // Delete expense
-const deleteExpense = async (req, res) => {
+export const deleteExpense = async (req, res) => {
   try {
     const expense = await Expense.findByIdAndDelete(req.params.id);
     if (!expense) {
@@ -58,7 +58,7 @@ const deleteExpense = async (req, res) => {
 };
 
 // Get expense statistics
-const getExpenseStats = async (req, res) => {
+export const getExpenseStats = async (req, res) => {
   try {
     const totalExpenses = await Expense.aggregate([
       { $group: { _id: null, total: { $sum: '$amount' } } }
@@ -83,10 +83,4 @@ const getExpenseStats = async (req, res) => {
   }
 };
 
-module.exports = {
-  getExpenses,
-  createExpense,
-  updateExpense,
-  deleteExpense,
-  getExpenseStats
-};
+

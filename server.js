@@ -1,11 +1,21 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const connectDB = require('./config/database');
-const errorHandler = require('./middleware/errorHandler');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
 
 // Load environment variables
 dotenv.config();
+import { userRouter } from './routes/userRoutes.js';
+import { adminRouter } from './routes/adminRoutes.js';
+import { studentRouter } from './routes/studentRoutes.js';
+import { paymentRouter } from './routes/paymentRoutes.js';
+import { expenseRouter } from './routes/expenseRoutes.js';
+import { seatRouter } from './routes/seatRoutes.js';
+import { alertRouter } from './routes/alertRoutes.js';
+import { dashboardRouter } from './routes/dashboardRoutes.js';
+import { connectDB } from './config/database.js';
+import { authRouter } from './routes/authRoutes.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 // Connect to database
 connectDB();
@@ -21,17 +31,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Auth routes (public)
-app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/auth', authRouter );
 
 // Protected routes
-app.use('/api/user', require('./routes/userRoutes'));
-app.use('/api/admin', require('./routes/adminRoutes'));
-app.use('/api/students', require('./routes/studentRoutes'));
-app.use('/api/payments', require('./routes/paymentRoutes'));
-app.use('/api/expenses', require('./routes/expenseRoutes'));
-app.use('/api/seats', require('./routes/seatRoutes'));
-app.use('/api/alerts', require('./routes/alertRoutes'));
-app.use('/api/dashboard', require('./routes/dashboardRoutes'));
+app.use('/api/user', userRouter );
+app.use('/api/admin', adminRouter );
+app.use('/api/students',  studentRouter);
+app.use('/api/payments',  paymentRouter);
+app.use('/api/expenses', expenseRouter);
+app.use('/api/seats', seatRouter);
+app.use('/api/alerts',  alertRouter);
+app.use('/api/dashboard', dashboardRouter );
 
 // Health check route
 app.get('/api/health', (req, res) => {

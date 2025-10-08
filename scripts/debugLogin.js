@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const path = require('path');
-const dotenv = require('dotenv');
+import mongoose  from 'mongoose';
+import path  from 'path';
+import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-const debugLogin = async () => {
+ export const debugLogin = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName : "librarytest2"

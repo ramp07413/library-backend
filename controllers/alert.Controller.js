@@ -1,8 +1,9 @@
-const { mongo, default: mongoose } = require('mongoose');
-const Alert = require('../models/Alert');
+import { Alert } from "../models/Alert.js";
+import   mongoose  from 'mongoose';
+
 
 // Get all alerts
-const getAlerts = async (req, res) => {
+export const getAlerts = async (req, res) => {
   try {
     const { type, read } = req.query;
     let query = {};
@@ -20,7 +21,7 @@ const getAlerts = async (req, res) => {
 };
 
 // Create new alert
-const createAlert = async (req, res) => {
+export const createAlert = async (req, res) => {
   try {
     const alert = new Alert(req.body);
     await alert.save();
@@ -31,7 +32,7 @@ const createAlert = async (req, res) => {
 };
 
 // Mark alert as read
-const markAsRead = async (req, res) => {
+export const markAsRead = async (req, res) => {
   try {
     const alert = await Alert.findByIdAndUpdate(
       req.params.id,
@@ -48,7 +49,7 @@ const markAsRead = async (req, res) => {
 };
 
 // Mark all alerts as read
-const markAllAsRead = async (req, res) => {
+export const markAllAsRead = async (req, res) => {
   try {
     await Alert.updateMany({ read: false }, { read: true });
     res.json({ message: 'All alerts marked as read' });
@@ -58,7 +59,7 @@ const markAllAsRead = async (req, res) => {
 };
 
 // Delete alert
-const deleteAlert = async (req, res) => {
+export const deleteAlert = async (req, res) => {
   try {
     const alertId = req.params.id
 
@@ -83,7 +84,7 @@ const deleteAlert = async (req, res) => {
 };
 
 // Get alert statistics
-const getAlertStats = async (req, res) => {
+export const getAlertStats = async (req, res) => {
   try {
     const totalAlerts = await Alert.countDocuments();
     const unreadAlerts = await Alert.countDocuments({ read: false });
@@ -102,11 +103,3 @@ const getAlertStats = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAlerts,
-  createAlert,
-  markAsRead,
-  markAllAsRead,
-  deleteAlert,
-  getAlertStats
-};

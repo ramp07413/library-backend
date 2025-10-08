@@ -1,6 +1,6 @@
-const  libraries =   require("../models/libraries")
+import  libraries from "../models/libraries.js"
 
-const registerLibrary = async(req, res, next)=>{
+export const registerLibrary = async(req, res, next)=>{
     try {
 
         const {libraryName, libraryEmail, libraryContact, libraryAddress} = req.body || {}
@@ -45,7 +45,4 @@ const registerLibrary = async(req, res, next)=>{
     }
 }
 
-module.exports = {
-    registerLibrary
-}
 

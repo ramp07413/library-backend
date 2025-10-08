@@ -1,9 +1,9 @@
-const Student = require('../models/Student');
-const { validationResult } = require('express-validator');
-const Seat = require('../models/Seat');
+import {Student} from '../models/Student.js';
+import { validationResult } from 'express-validator';
+ import {Seat}  from '../models/Seat.js';
 
 // Get all students
-const getStudents = async (req, res) => {
+export const getStudents = async (req, res) => {
   try {
     const { search, shift, status, seatingType } = req.query;
     let query = {};
@@ -48,7 +48,7 @@ const getStudents = async (req, res) => {
 
 
 // Get student by ID
-const getStudentById = async (req, res) => {
+export const getStudentById = async (req, res) => {
   try {
     const studentId = req.params.id
     const student = await Student.findById(studentId);
@@ -66,7 +66,7 @@ const getStudentById = async (req, res) => {
 };
 
 // Create new student
-const createStudent = async (req, res) => {
+export const createStudent = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -87,7 +87,7 @@ const createStudent = async (req, res) => {
 };
 
 // Update student
-const updateStudent = async (req, res) => {
+export const updateStudent = async (req, res) => {
   try {
     const student = await Student.findByIdAndUpdate(
       req.params.id,
@@ -105,9 +105,7 @@ const updateStudent = async (req, res) => {
 
 // Delete student
 // 
-
-
-const deleteStudent = async (req, res) => {
+export const deleteStudent = async (req, res) => {
   try {
     // pehle student dhoondo
     const student = await Student.findById(req.params.id);
@@ -141,10 +139,3 @@ const deleteStudent = async (req, res) => {
 };
 
 
-module.exports = {
-  getStudents,
-  getStudentById,
-  createStudent,
-  updateStudent,
-  deleteStudent
-};

@@ -1,6 +1,6 @@
-const Payment = require("../models/Payment");
+import {Payment}  from "../models/Payment.js";
 
-const getPayments = async(req, res, next)=>{
+ export const getPayments = async(req, res, next)=>{
     try {
         const payments = await Payment.find({}).populate("studentId", 'name email phone')
         if(!payments || payments.length === 0){
@@ -20,7 +20,7 @@ const getPayments = async(req, res, next)=>{
     }
 }
 
-const getOneStudentPayment = async(req, res, next)=>{
+export const getOneStudentPayment = async(req, res, next)=>{
     try {
 
         const studentId = req.params.id
@@ -38,7 +38,7 @@ const getOneStudentPayment = async(req, res, next)=>{
     }
 }
 
-const addPendingPayment = async(req, res, next)=>{
+ export const addPendingPayment = async(req, res, next)=>{
     try {
         
         const {studentId, month, year, amount} = req.body
@@ -79,7 +79,7 @@ const addPendingPayment = async(req, res, next)=>{
 }
 
 
-const depositPayment = async(req, res, next)=>{
+export const depositPayment = async(req, res, next)=>{
     try {
         
         const {studentId, month, year, amount, paymentType} = req.body
@@ -130,7 +130,7 @@ const depositPayment = async(req, res, next)=>{
 }
 
 
-const updatePayment = async(req, res, next)=>{
+export const updatePayment = async(req, res, next)=>{
     try {
        const paymentId = req.params.id
        const {amount, month , year, status} = req.body
@@ -167,7 +167,7 @@ const updatePayment = async(req, res, next)=>{
     }
 }
 
-const deletePayment = async(req, res, next)=>{
+ export const deletePayment = async(req, res, next)=>{
     try {
 
     const paymentId = req.params.id
@@ -194,11 +194,3 @@ const deletePayment = async(req, res, next)=>{
 
 
 
-module.exports = {
-    getPayments,
-    addPendingPayment,
-    depositPayment,
-    getOneStudentPayment,
-    updatePayment,
-    deletePayment
-}

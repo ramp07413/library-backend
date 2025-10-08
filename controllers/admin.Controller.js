@@ -1,8 +1,8 @@
-const User = require('../models/User');
-const { validationResult } = require('express-validator');
+import {User} from '../models/User.js'
+import { validationResult } from 'express-validator';
 
 // Get all users (admin management)
-const getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
     const { role, status } = req.query;
     let query = {};
@@ -22,7 +22,7 @@ const getUsers = async (req, res) => {
 };
 
 // Create new admin user
-const createAdmin = async (req, res) => {
+export const createAdmin = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -67,7 +67,7 @@ const createAdmin = async (req, res) => {
 };
 
 // Update user permissions
-const updatePermissions = async (req, res) => {
+export  const updatePermissions = async (req, res) => {
   try {
     const { permissions } = req.body;
     const userId = req.params.id;
@@ -105,7 +105,7 @@ const updatePermissions = async (req, res) => {
 };
 
 // Activate/Deactivate user
-const toggleUserStatus = async (req, res) => {
+export const toggleUserStatus = async (req, res) => {
   try {
     const userId = req.params.id;
     const { isActive } = req.body;
@@ -143,7 +143,7 @@ const toggleUserStatus = async (req, res) => {
 };
 
 // Delete user
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
 
@@ -171,7 +171,7 @@ const deleteUser = async (req, res) => {
 };
 
 // Get user statistics
-const getUserStats = async (req, res) => {
+ export const getUserStats = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
     const activeUsers = await User.countDocuments({ isActive: true });
@@ -192,13 +192,4 @@ const getUserStats = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-module.exports = {
-  getUsers,
-  createAdmin,
-  updatePermissions,
-  toggleUserStatus,
-  deleteUser,
-  getUserStats
 };

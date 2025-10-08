@@ -1,10 +1,10 @@
-const Payment = require('../models/Payment');
-const Student = require('../models/Student');
-const Alert = require('../models/Alert');
-const Seat = require('../models/Seat');
+import { Alert } from '../models/Alert.js';
+import { Payment } from '../models/Payment.js';
+import { Seat } from '../models/Seat.js';
+import { Student } from '../models/Student.js';
 
 // Get user's student details
-const getMyDetails = async (req, res) => {
+export const getMyDetails = async (req, res) => {
   try {
     if (!req.user.studentId) {
       return res.status(404).json({ message: 'No student profile found' });
@@ -22,7 +22,7 @@ const getMyDetails = async (req, res) => {
 };
 
 // Get user's payment history
-const getMyPayments = async (req, res) => {
+export const getMyPayments = async (req, res) => {
   try {
     if (!req.user.studentId) {
       return res.status(404).json({ message: 'No student profile found' });
@@ -62,7 +62,7 @@ const getMyPayments = async (req, res) => {
 };
 
 // Get user's due payments
-const getMyDuePayments = async (req, res) => {
+ export const getMyDuePayments = async (req, res) => {
   try {
     if (!req.user.studentId) {
       return res.status(404).json({ message: 'No student profile found' });
@@ -90,7 +90,7 @@ const getMyDuePayments = async (req, res) => {
 };
 
 // Get user's alerts
-const getMyAlerts = async (req, res) => {
+export const getMyAlerts = async (req, res) => {
   try {
     const { read, limit = 20 } = req.query;
     let query = {};
@@ -125,7 +125,7 @@ const getMyAlerts = async (req, res) => {
 };
 
 // Get user's seat information
-const getMySeat = async (req, res) => {
+export const getMySeat = async (req, res) => {
   try {
 
     const studentId = req.user.studentId
@@ -159,7 +159,7 @@ const getMySeat = async (req, res) => {
 };
 
 // Get user dashboard summary
-const getMyDashboard = async (req, res) => {
+export const getMyDashboard = async (req, res) => {
   try {
     if (!req.user.studentId) {
       return res.status(404).json({ message: 'No student profile found' });
@@ -213,13 +213,4 @@ const getMyDashboard = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-module.exports = {
-  getMyDetails,
-  getMyPayments,
-  getMyDuePayments,
-  getMyAlerts,
-  getMySeat,
-  getMyDashboard
 };

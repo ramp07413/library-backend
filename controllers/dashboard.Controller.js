@@ -1,11 +1,11 @@
-const Student = require('../models/Student');
-const Payment = require('../models/Payment');
-const Expense = require('../models/Expense');
-const Seat = require('../models/Seat');
-const Alert = require('../models/Alert');
+import {Student} from '../models/Student.js';
+import {Payment} from '../models/Payment.js';
+// import Expense from '../models/Expense';
+import {Seat} from '../models/Seat.js';
+import {Alert} from '../models/Alert.js';
 
 // Get dashboard statistics
-const getDashboardStats = async (req, res) => {
+export const getDashboardStats = async (req, res) => {
   try {
     // Student stats
     const totalStudents = await Student.countDocuments();
@@ -53,7 +53,7 @@ const getDashboardStats = async (req, res) => {
 };
 
 // Get revenue analytics
-const getRevenueAnalytics = async (req, res) => {
+export const getRevenueAnalytics = async (req, res) => {
   try {
     const { period = '6months' } = req.query;
     const currentDate = new Date();
@@ -99,7 +99,4 @@ const getRevenueAnalytics = async (req, res) => {
   }
 };
 
-module.exports = {
-  getDashboardStats,
-  getRevenueAnalytics
-};
+

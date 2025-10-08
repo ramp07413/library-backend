@@ -1,9 +1,9 @@
-const Alert = require('../models/Alert');
-const Payment = require('../models/Payment');
-const { isOverdue } = require('../utils/dateUtils');
+import Alert from '../models/Alert.js';
+import Payment from '../models/Payment.js';
+// import { isOverdue } from '../utils/dateUtils';
 
 // Create alert for overdue payments
-const createOverduePaymentAlert = async (payment) => {
+export const createOverduePaymentAlert = async (payment) => {
   try {
     const alert = new Alert({
       type: 'warning',
@@ -19,7 +19,7 @@ const createOverduePaymentAlert = async (payment) => {
 };
 
 // Create alert for new student registration
-const createNewStudentAlert = async (student) => {
+export const createNewStudentAlert = async (student) => {
   try {
     const alert = new Alert({
       type: 'info',
@@ -35,7 +35,7 @@ const createNewStudentAlert = async (student) => {
 };
 
 // Create alert for payment received
-const createPaymentReceivedAlert = async (payment) => {
+export const createPaymentReceivedAlert = async (payment) => {
   try {
     const alert = new Alert({
       type: 'success',
@@ -51,7 +51,7 @@ const createPaymentReceivedAlert = async (payment) => {
 };
 
 // Check for overdue payments and create alerts
-const checkOverduePayments = async () => {
+export const checkOverduePayments = async () => {
   try {
     const overduePayments = await Payment.find({
       status: 'pending',
@@ -73,9 +73,4 @@ const checkOverduePayments = async () => {
   }
 };
 
-module.exports = {
-  createOverduePaymentAlert,
-  createNewStudentAlert,
-  createPaymentReceivedAlert,
-  checkOverduePayments
-};
+

@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const path = require('path');
-const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import path from 'path';
+import dotenv  from 'dotenv';
+import bcrypt from 'bcryptjs';
 
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-const testLogin = async () => {
+export const testLogin = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName : 'librarytest2'

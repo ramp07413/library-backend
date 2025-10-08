@@ -1,15 +1,15 @@
-const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
-const User = require('../models/User');
-const Student = require('../models/Student');
+import jwt from 'jsonwebtoken';
+import { validationResult } from 'express-validator';
+import {User} from '../models/User.js';
+import {Student} from '../models/Student.js';
 
 // Generate JWT token
-const generateToken = (id) => {
+export const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
 // Register new user
-const register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -65,7 +65,7 @@ const register = async (req, res) => {
 };
 
 // Login user
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -105,7 +105,7 @@ const login = async (req, res) => {
 };
 
 // Get current user profile
-const getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id)
       .populate('studentId', 'name email phone address joinDate shift seatNumber status monthlyFee')
@@ -118,7 +118,7 @@ const getProfile = async (req, res) => {
 };
 
 // Update user profile
-const updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
   try {
     const { email } = req.body;
     
@@ -136,7 +136,7 @@ const updateProfile = async (req, res) => {
 };
 
 // Change password
-const changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
 
@@ -157,10 +157,3 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = {
-  register,
-  login,
-  getProfile,
-  updateProfile,
-  changePassword
-};

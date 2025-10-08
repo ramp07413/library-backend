@@ -1,5 +1,5 @@
-const Router = require('express');
-const { registerLibrary } = require('../controllers/library.Controller');
+import { Router } from 'express';
+import { registerLibrary } from '../controllers/library.Controller.js';
 
 const router = Router();
 
@@ -12,4 +12,4 @@ router.post("/register", registerLibrary)
 // router.delete(":/id", deleteLibrary)
 
 
-module.exports  = router
+export { router as libraryRouter}

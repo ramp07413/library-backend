@@ -1,8 +1,9 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import jwt from 'jsonwebtoken';
+import { User } from '../models/User.js';
+
 
 // Verify JWT token
-const authenticate = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     
@@ -25,7 +26,7 @@ const authenticate = async (req, res, next) => {
 };
 
 // Check if user has specific permission
-const authorize = (module, action) => {
+ export const authorize = (module, action) => {
   return (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({ message: 'Authentication required.' });
@@ -46,7 +47,7 @@ const authorize = (module, action) => {
 };
 
 // Check if user is admin or super admin
-const requireAdmin = (req, res, next) => {
+export const requireAdmin = (req, res, next) => {
   if (!req.user || (req.user.role !== 'admin' && req.user.role !== 'super_admin')) {
     return res.status(403).json({ message: 'Access denied. Admin privileges required.' });
   }
@@ -54,16 +55,10 @@ const requireAdmin = (req, res, next) => {
 };
 
 // Check if user is super admin
-const requireSuperAdmin = (req, res, next) => {
+export const requireSuperAdmin = (req, res, next) => {
   if (!req.user || req.user.role !== 'super_admin') {
     return res.status(403).json({ message: 'Access denied. Super admin privileges required.' });
   }
   next();
 };
 
-module.exports = {
-  authenticate,
-  authorize,
-  requireAdmin,
-  requireSuperAdmin
-};

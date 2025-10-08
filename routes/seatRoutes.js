@@ -1,16 +1,8 @@
-const express = require('express');
-const {
-  initializeSeats,
-  createSeat,
-  getSeats,
-  deleteSeat,
-  assignSeat,
-  unassignSeat,
-  getSeatStats
-} = require('../controllers/seatController');
-const { authenticate, authorize } = require('../middleware/auth');
+import { Router } from 'express';
+import { authenticate, authorize } from '../middleware/auth.js';
+import { assignSeat, createSeat, deleteSeat, getSeats, getSeatStats, unassignSeat } from '../controllers/seat.Controller.js';
 
-const router = express.Router();
+const router = Router();
 
 // All routes require authentication
 router.use(authenticate);
@@ -23,4 +15,4 @@ router.post('/create', authorize('seats', 'create'), createSeat);
 router.delete('/delete', authorize('seats', 'delete'), deleteSeat);
 router.put('/:id/unassign', authorize('seats', 'update'), unassignSeat);
 
-module.exports = router;
+export { router as seatRouter}

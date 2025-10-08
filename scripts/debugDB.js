@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const path = require('path');
-const dotenv = require('dotenv');
+import mongoose  from 'mongoose';
+import path  from 'path';
+import dotenv  from 'dotenv';
 
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-const debugDB = async () => {
+ export const debugDB = async () => {
   try {
     console.log('Environment variables:');
     console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');

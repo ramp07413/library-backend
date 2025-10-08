@@ -1,9 +1,9 @@
-const { default: mongoose } = require('mongoose');
-const Seat = require('../models/Seat');
-const Student = require('../models/Student');
+import  mongoose  from 'mongoose';
+import {Seat}  from '../models/Seat.js';
+import {Student} from '../models/Student.js';
 
 // Initialize seats (run once)
-const createSeat = async(req, res)=>{
+export const createSeat = async(req, res)=>{
   try {
     const {seatNumber} = req.body
 
@@ -36,7 +36,7 @@ const createSeat = async(req, res)=>{
   }
 }
 
-const deleteSeat = async(req, res)=>{
+export const deleteSeat = async(req, res)=>{
   try {
     const {seatNumber} = req.body
 
@@ -66,7 +66,7 @@ const deleteSeat = async(req, res)=>{
     })
   }
 }
-const initializeSeats = async (req, res) => {
+export const initializeSeats = async (req, res) => {
   try {
     const existingSeats = await Seat.countDocuments();
     if (existingSeats > 0) {
@@ -94,7 +94,7 @@ const initializeSeats = async (req, res) => {
 };
 
 // Get all seats
-const getSeats = async (req, res) => {
+export const getSeats = async (req, res) => {
   try {
     const seats = await Seat.find().populate('student.studentId', 'name').sort({ seatNumber: 1 });
     res.json(seats);
@@ -104,7 +104,7 @@ const getSeats = async (req, res) => {
 };
 
 // Assign seat to student
-const assignSeat = async (req, res) => {
+export const assignSeat = async (req, res) => {
   try {
     const { seatId, studentId, seatOcupiedTiming } = req.body;
 
@@ -160,7 +160,7 @@ const assignSeat = async (req, res) => {
 };
 
 // Unassign seat
-const unassignSeat = async (req, res) => {
+export const unassignSeat = async (req, res) => {
   try {
     const { studentId } = req.body
     const seat = await Seat.findById(req.params.id).populate("student.studentId");
@@ -192,7 +192,7 @@ const unassignSeat = async (req, res) => {
 };
 
 // Get seat statistics
-const getSeatStats = async (req, res) => {
+ export const getSeatStats = async (req, res) => {
   try {
     const totalSeats = await Seat.countDocuments();
     const occupiedSeats = await Seat.countDocuments({ occupied: true });
@@ -225,12 +225,4 @@ const getSeatStats = async (req, res) => {
   }
 };
 
-module.exports = {
-  initializeSeats,
-  getSeats,
-  assignSeat,
-  unassignSeat,
-  getSeatStats,
-  createSeat,
-  deleteSeat
-};
+

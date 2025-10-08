@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose  from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -110,4 +110,4 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = mongoose.model('users', userSchema);
+ export const  User  = mongoose.model('users', userSchema);

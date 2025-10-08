@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const path = require('path');
-const dotenv = require('dotenv');
-const User = require('../models/User');
+import mongoose from 'mongoose';
+import path  from 'path';
+import dotenv from 'dotenv';
+import User from '../models/User';
 
 // Load environment variables from parent directory
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-const createSuperAdmin = async () => {
+ export const createSuperAdmin = async () => {
   try {
     // Check if MONGODB_URI is loaded
     if (!process.env.MONGODB_URI) {

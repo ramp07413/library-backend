@@ -1,15 +1,8 @@
-const express = require('express');
-const {
-  getAlerts,
-  createAlert,
-  markAsRead,
-  markAllAsRead,
-  deleteAlert,
-  getAlertStats
-} = require('../controllers/alertController');
-const { authenticate, authorize } = require('../middleware/auth');
+ import { Router } from 'express';
+import { createAlert, deleteAlert, getAlerts, getAlertStats, markAllAsRead, markAsRead } from '../controllers/alert.Controller.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 
-const router = express.Router();
+const router = Router();
 
 // All routes require authentication
 router.use(authenticate);
@@ -22,4 +15,5 @@ router.put('/:id/read', authorize('alerts', 'update'), markAsRead);
 router.put('/read-all', authorize('alerts', 'update'), markAllAsRead);
 router.delete('/:id', authorize('alerts', 'delete'), deleteAlert);
 
-module.exports = router;
+
+export {router as alertRouter}

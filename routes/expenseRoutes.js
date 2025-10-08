@@ -1,14 +1,8 @@
-const express = require('express');
-const {
-  getExpenses,
-  createExpense,
-  updateExpense,
-  deleteExpense,
-  getExpenseStats
-} = require('../controllers/expenseController');
-const { authenticate, authorize } = require('../middleware/auth');
+import { Router } from 'express';
+import { createExpense, deleteExpense, getExpenses, getExpenseStats, updateExpense } from '../controllers/expense.Controller.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 
-const router = express.Router();
+const router = Router();
 
 // All routes require authentication
 router.use(authenticate);
@@ -20,4 +14,4 @@ router.post('/', authorize('expenses', 'create'), createExpense);
 router.put('/:id', authorize('expenses', 'update'), updateExpense);
 router.delete('/:id', authorize('expenses', 'delete'), deleteExpense);
 
-module.exports = router;
+export {router as expenseRouter}

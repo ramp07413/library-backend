@@ -1,4 +1,4 @@
-const mongooes =  require('mongoose')
+import mongooes from 'mongoose'
 
 const librarySchema = new mongooes.Schema({
     libraryName : {
@@ -28,4 +28,6 @@ const librarySchema = new mongooes.Schema({
 
 }, {timestamps : true})
 
-module.exports = mongooes.model("libraries", librarySchema)
+
+
+export  const libraries = mongooes.model('libraries',librarySchema)

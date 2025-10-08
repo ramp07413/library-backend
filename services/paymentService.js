@@ -1,9 +1,9 @@
-const Payment = require('../models/Payment');
-const Student = require('../models/Student');
-const { getNextMonthDueDate, getMonthName } = require('../utils/dateUtils');
+import Payment from '../models/Payment.js';
+import Student from '../models/Student.js';
+import { getNextMonthDueDate, getMonthName } from '../utils/dateUtils.js';
 
 // Generate monthly payments for all active students
-const generateMonthlyPayments = async () => {
+ const generateMonthlyPayments = async () => {
   try {
     const activeStudents = await Student.find({ status: 'active' });
     const currentDate = new Date();
