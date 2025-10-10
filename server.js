@@ -16,6 +16,7 @@ import { dashboardRouter } from './routes/dashboardRoutes.js';
 import { connectDB } from './config/database.js';
 import { authRouter } from './routes/authRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import { libraryRouter } from './routes/libraryRoutes.js';
 
 // Connect to database
 connectDB();
@@ -42,6 +43,7 @@ app.use('/api/expenses', expenseRouter);
 app.use('/api/seats', seatRouter);
 app.use('/api/alerts',  alertRouter);
 app.use('/api/dashboard', dashboardRouter );
+app.use("/api/library", libraryRouter)
 
 // Health check route
 app.get('/api/health', (req, res) => {

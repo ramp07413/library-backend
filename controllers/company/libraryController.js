@@ -1,15 +1,15 @@
-import  libraries from "../models/libraries.js"
+import { validationResult } from "express-validator";
+import { libraries } from "../../models/libraries.js"
 
 export const registerLibrary = async(req, res, next)=>{
     try {
 
         const {libraryName, libraryEmail, libraryContact, address_line1,address_line2,city,state,pincode,subscription_plan,subscription_status} = req.body || {}
 
-        if(!libraryName || !libraryEmail || !libraryContact || !address_line1 || !address_line2 || !city || !state || !pincode ){
-            return res.status(400).json({
-                success : false,
-                message : "please fill the fields !"
-            })
+         const errors = validationResult(req);
+        
+        if (!errors.isEmpty()) {
+            return next({ status: 400, errors: errors.array() });
         }
 
         let librarydata = await libraries.findOne({libraryEmail})
@@ -22,13 +22,10 @@ export const registerLibrary = async(req, res, next)=>{
         }
 
         librarydata = await libraries.create({
-            libraryName, 
-            libraryEmail, 
-            libraryContact,
-            libraryAddress
+            libraryName, libraryEmail, libraryContact, address_line1,address_line2,city,state,pincode,subscription_plan,subscription_status
         })
 
-         res.status(200).josn({
+         res.status(200).json({
                 success : true,
                 message : "library register successfully !",
                 librarydata
@@ -40,8 +37,27 @@ export const registerLibrary = async(req, res, next)=>{
             success : false,
             message : err.message
         })
+    }
+}
 
 
+
+export const getLibrares = async(req, res, next)=>{
+    try {
+
+        let librarydata = await libraries.find({})
+
+         res.status(200).json({
+                success : true,
+                librarydata
+            })
+        
+    } catch (err) {
+        console.error(err)
+        res.status(500).josn({
+            success : false,
+            message : err.message
+        })
     }
 }
 

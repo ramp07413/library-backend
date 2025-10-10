@@ -18,6 +18,7 @@ export const changePasswordValidation = [
 
 
 //  admin  validation 
+
 export const createAdminValidation = [
   body('email').isEmail().withMessage('Please provide a valid email'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
@@ -112,4 +113,18 @@ export const seatValidation = [
   body('shift').isIn(['morning', 'afternoon', 'evening', 'night']).withMessage('Invalid shift'),
   body('seatPreference').optional().isIn(['any', 'window', 'quiet', 'group'])
 ];
+
+export const libraryValidation = [
+  body('libraryName').trim().isLength({min : 1}).withMessage("Name is required"),
+  body('libraryEmail').isEmail().withMessage("provide a valid email"),
+  body('libraryContact').isMobilePhone().withMessage("please provide a valid phone number"),
+  body('address_line1').trim().isLength({min : 5}).withMessage("address must be atleast 5 character"),
+  body('city').trim().isLength({min : 1}).withMessage("please provide a city name"),
+  body('state').trim().isLength({min : 1}).withMessage("please provide a state Name"),
+  body('pincode').notEmpty().withMessage("pincode is required !")
+  .isInt({min : 1}).withMessage('pincode should be in positive number')
+]
+
+
+
 

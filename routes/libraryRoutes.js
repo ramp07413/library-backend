@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import { registerLibrary } from '../controllers/library.Controller.js';
-import { registerValidation } from '../middleware/validation.js';
+import { getLibrares, registerLibrary } from '../controllers/company/libraryController.js';
+import { validationResult } from 'express-validator';
+import { validateRequest } from '../middleware/vaildationResult.js';
+import { libraryValidation } from '../middleware/validation.js';
 
 const router = Router();
 
-// router.get("/all", allLibraries)
+router.get("/all", getLibrares)
 
-router.post("/register",registerValidation, registerLibrary)
+router.post("/register",libraryValidation,validateRequest, registerLibrary)
 
 // router.put("/:id", updateLibrary)
 

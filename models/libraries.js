@@ -22,8 +22,7 @@ const librarySchema = new mongooes.Schema({
     }, 
 
     address_line2 : {
-        type : String,
-        required : true
+        type : String
     }, 
 
     city : {
