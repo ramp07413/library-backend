@@ -18,4 +18,4 @@ router.patch("/read-all",createAlertValidation,validateAlert, markAllAsRead);
 router.delete("/:id", deleteAlert); 
 router.get("/stats", getAlertStats); 
 
-export default router;
+// export default router;
