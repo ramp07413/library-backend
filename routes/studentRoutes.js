@@ -1,7 +1,7 @@
 import { body }  from 'express-validator';
 import { createStudent, deleteStudent, getStudentById, getStudents, updateStudent } from '../controllers/student.Controller.js';
 import { Router } from 'express';
-import { authorize } from '../middleware/auth.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 
 
 
@@ -18,7 +18,7 @@ const studentValidation = [
 ];
 
 // All routes require authentication
-// router.use(authenticate);
+router.use(authenticate);
 
 // Routes with authorization
 router.get('/', authorize('students', 'read'), getStudents);
