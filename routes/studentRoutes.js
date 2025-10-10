@@ -1,7 +1,6 @@
 import { createStudent, deleteStudent, getStudentById, getStudents, updateStudent } from '../controllers/student.Controller.js';
 import { Router } from 'express';
 import { authenticate, authorize } from '../middleware/auth.js';
-import { studentValidation } from '../middleware/validation.js';
 
 
 

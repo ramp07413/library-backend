@@ -16,11 +16,40 @@ const librarySchema = new mongooes.Schema({
         required : true
     }, 
 
-    libraryAddress : {
-        type : Object,
+    address_line1 : {
+        type : String,
         required : true
     }, 
 
+    address_line2 : {
+        type : String,
+        required : true
+    }, 
+
+    city : {
+        type : String,
+        required : true
+    }, 
+
+    state : {
+        type : String,
+        required : true
+    }, 
+
+    pincode : {
+        type : Number,
+        required : true
+    }, 
+
+    subscription_plan : {
+        type : String,
+        enum : ['free_membership', 'premium_membership', 'diamond_membership'],
+        default : 'free_membership'
+    },
+    subscription_status : {
+        type : String,
+        enum : ['active', "inactive", "suspended"]
+    },
     isActive : {
         type : Boolean, 
         default : false
