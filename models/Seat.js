@@ -24,6 +24,11 @@ const seatSchema = new mongoose.Schema({
     row: { type: Number, default: 1 },
     column: { type: Number, default: 1 }
   },
+  libraryId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'libraries',
+  required: true
+},
   student: [{
     studentId: {
       type: mongoose.Schema.Types.ObjectId,

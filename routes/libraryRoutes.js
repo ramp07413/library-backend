@@ -6,7 +6,7 @@ import { libraryValidation } from '../middleware/validation.js';
 
 const router = Router();
 
-router.get("/all", getLibrares)
+router.get("/all",)
 
 router.post("/register",libraryValidation,validateRequest, registerLibrary)
 

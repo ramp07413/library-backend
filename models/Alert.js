@@ -22,7 +22,12 @@ const alertSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student',
     default: null
-  }
+  },
+  libraryId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'libraries',
+  required: true
+},
 }, {
   timestamps: true
 });
