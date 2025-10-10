@@ -68,7 +68,12 @@ const userSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
-  }
+  },
+  libraryId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'libraries',
+  required: true
+},
 }, {
   timestamps: true
 });

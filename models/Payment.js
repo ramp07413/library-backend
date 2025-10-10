@@ -35,7 +35,12 @@ const paymentSchema = new mongoose.Schema({
   year: {
     type: Number,
     required: true
-  }
+  },
+  libraryId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'libraries',
+  required: true
+},
 }, {
   timestamps: true
 });

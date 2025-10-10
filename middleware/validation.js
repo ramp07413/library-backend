@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body ,validationResult} from 'express-validator';
 // Validation auth rules
 export const registerValidation = [
   body('email').isEmail().withMessage('Please provide a valid email'),
@@ -27,22 +27,29 @@ export const createAdminValidation = [
 
 //  alert validtion
 
+
 export const createAlertValidation = [
-  body('type')
-    .notEmpty().withMessage('Type is required')
-    .isIn(['info', 'warning', 'error', 'success'])
-    .withMessage('Type must be one of: info, warning, error, success'),
-
-  body('title')
-    .notEmpty().withMessage('Title is required')
-    .withMessage('Title must be at least 3 characters long'),
-
-  body('message')
-    .notEmpty().withMessage('Message is required')
-    .withMessage('Message must be at least 5 characters long'),
-
-
+  body("type")
+    .notEmpty().withMessage("Alert type is required")
+    .isIn(["info", "warning", "error", "success"])
+    .withMessage("Type must be one of: info, warning, error, success"),
+  body("title")
+    .notEmpty().withMessage("Alert title is required"),
+  body("message")
+    .notEmpty().withMessage("Alert message is required"),
 ];
+
+export const validateAlert = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array()
+    });
+  }
+  next();
+};
+
 
 
 // expense validtions
@@ -63,8 +70,17 @@ export const expenseValidation = [
     .isNumeric().withMessage('Amount must be a valid number')
     .custom(value => value > 0).withMessage('Amount must be greater than 0'),
 
-
 ];
+export const validateExpense = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array()
+    });
+  }
+  next();
+};
 
 
 // payments validations 

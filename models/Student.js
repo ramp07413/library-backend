@@ -45,7 +45,14 @@ const studentSchema = new mongoose.Schema({
     type: String,
     enum: ['active', 'inactive'],
     default: 'active'
-  }
+  },
+  libraryId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'libraries',
+  required: true
+},
+
+  
 }, {
   timestamps: true
 });

@@ -4,7 +4,7 @@ import { registerValidation } from '../middleware/validation.js';
 
 const router = Router();
 
-// router.get("/all", allLibraries)
+router.get("/all",)
 
 router.post("/register",registerValidation, registerLibrary)
 
