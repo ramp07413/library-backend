@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { registerLibrary } from '../controllers/library.Controller.js';
+import { registerValidation } from '../middleware/validation.js';
 
 const router = Router();
 
 // router.get("/all", allLibraries)
 
-router.post("/register", registerLibrary)
+router.post("/register",registerValidation, registerLibrary)
 
 // router.put("/:id", updateLibrary)
 

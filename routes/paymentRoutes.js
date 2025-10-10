@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { authenticate, authorize } from '../middleware/auth.js';
 import { getPayments, updatePayment } from '../controllers/payment.controller.js';
+import { paymentValidation } from '../middleware/validation.js';
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.use(authenticate);
 router.get('/', authorize('payments', 'read'), getPayments);
 // router.get('/stats', authorize('payments', 'read'), getPaymentStats);
 // router.get('/export', authorize('payments', 'read'), exportPayments);
-router.put('/:id', authorize('payments', 'update'), updatePayment)
+router.put('/:id', authorize('payments', paymentValidation,'update'), updatePayment)
 
 
 

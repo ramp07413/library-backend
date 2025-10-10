@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { body } from 'express-validator';
 import { createAdmin, deleteUser, getUsers, getUserStats, toggleUserStatus, updatePermissions } from '../controllers/admin.Controller.js';
 import { authenticate, requireAdmin, requireSuperAdmin } from '../middleware/auth.js';
+import { createAdminValidation } from '../middleware/validation.js';
 
 
 
@@ -11,11 +11,6 @@ const router = Router();
 router.use(authenticate);
 
 // Validation rules
-export const createAdminValidation = [
-  body('email').isEmail().withMessage('Please provide a valid email'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-  body('role').optional().isIn(['admin', 'super_admin']).withMessage('Invalid role')
-];
 
 // Admin management routes
 router.get('/users', requireAdmin, getUsers);

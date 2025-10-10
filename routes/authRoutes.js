@@ -5,7 +5,7 @@ import { changePasswordValidation, loginValidation, registerValidation } from '.
 
 const router = Router();
 
-// Validation rules
+
  
 
 // Routes

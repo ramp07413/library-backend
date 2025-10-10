@@ -30,6 +30,7 @@ export const createSeat = async(req, res)=>{
     await data.save()
     
   } catch (err) {
+    console.log(err)
     res.status(500).json({
       message : "something went wrong !"
     })
